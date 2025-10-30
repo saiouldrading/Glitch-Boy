@@ -2415,20 +2415,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 569565126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7037e93bb2961e48bdea98bb503531c, type: 3}
+  m_Script: {fileID: 11500000, guid: f50cb9fd55c5b9f4bb079b19493758c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 8
+  detectionRange: 10
+  losePlayerRange: 12
   playerLayer:
     serializedVersion: 2
-    m_Bits: 64
-  moveSpeed: 3
+    m_Bits: 192
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  moveSpeed: 4
+  chaseSpeed: 5.5
   stoppingDistance: 1.5
+  patrolSpeed: 2
+  edgeCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  edgeCheckOffset: {x: 0.5, y: -0.3}
+  shouldPatrol: 1
+  patrolWaitTime: 2
+  minPatrolDistance: 3
+  maxPatrolDistance: 7
   damageAmount: 10
   damageInterval: 1
+  attackRange: 1.2
   rb: {fileID: 569565133}
   player: {fileID: 451783665}
   animator: {fileID: 569565127}
+  spriteRenderer: {fileID: 569565128}
 --- !u!1 &569868913
 GameObject:
   m_ObjectHideFlags: 0
@@ -2716,20 +2733,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 572695734}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7037e93bb2961e48bdea98bb503531c, type: 3}
+  m_Script: {fileID: 11500000, guid: f50cb9fd55c5b9f4bb079b19493758c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 8
+  detectionRange: 10
+  losePlayerRange: 12
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  moveSpeed: 4
+  chaseSpeed: 5.5
   stoppingDistance: 1.5
+  patrolSpeed: 2
+  edgeCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  edgeCheckOffset: {x: 0.5, y: -0.3}
+  shouldPatrol: 1
+  patrolWaitTime: 2
+  minPatrolDistance: 3
+  maxPatrolDistance: 7
   damageAmount: 10
   damageInterval: 1
+  attackRange: 1.2
   rb: {fileID: 572695741}
-  player: {fileID: 572695740}
+  player: {fileID: 451783665}
   animator: {fileID: 572695738}
+  spriteRenderer: {fileID: 572695739}
 --- !u!1 &588550341
 GameObject:
   m_ObjectHideFlags: 0
@@ -4714,20 +4748,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1193441081}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7037e93bb2961e48bdea98bb503531c, type: 3}
+  m_Script: {fileID: 11500000, guid: f50cb9fd55c5b9f4bb079b19493758c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 8
+  detectionRange: 10
+  losePlayerRange: 12
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  moveSpeed: 4
+  chaseSpeed: 5.5
   stoppingDistance: 1.5
+  patrolSpeed: 2
+  edgeCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  edgeCheckOffset: {x: 0.5, y: -0.3}
+  shouldPatrol: 1
+  patrolWaitTime: 2
+  minPatrolDistance: 3
+  maxPatrolDistance: 7
   damageAmount: 10
   damageInterval: 1
+  attackRange: 1.2
   rb: {fileID: 1193441088}
   player: {fileID: 451783665}
   animator: {fileID: 1193441085}
+  spriteRenderer: {fileID: 1193441086}
 --- !u!1 &1223324638
 GameObject:
   m_ObjectHideFlags: 0
@@ -43383,20 +43434,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 1367395991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7037e93bb2961e48bdea98bb503531c, type: 3}
+  m_Script: {fileID: 11500000, guid: f50cb9fd55c5b9f4bb079b19493758c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 8
+  detectionRange: 10
+  losePlayerRange: 12
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
-  moveSpeed: 3
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  moveSpeed: 4
+  chaseSpeed: 5.5
   stoppingDistance: 1.5
+  patrolSpeed: 2
+  edgeCheckDistance: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  edgeCheckOffset: {x: 0.5, y: -0.3}
+  shouldPatrol: 1
+  patrolWaitTime: 2
+  minPatrolDistance: 3
+  maxPatrolDistance: 7
   damageAmount: 10
   damageInterval: 1
+  attackRange: 1.2
   rb: {fileID: 1367395998}
   player: {fileID: 451783665}
   animator: {fileID: 1367395995}
+  spriteRenderer: {fileID: 1367395996}
 --- !u!1 &1370253200
 GameObject:
   m_ObjectHideFlags: 0

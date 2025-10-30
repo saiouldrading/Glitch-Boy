@@ -155,10 +155,10 @@ public class Enemy2 : MonoBehaviour
         // animator.SetFloat("Speed", isMoving ? moveSpeed : 0f);
         
         // Horizontal movement ke liye (vertical nahi chahiye)
-        if (isMoving)
-        {
-            animator.SetFloat("Horizontal", movement.x);
-        }
+        // if (isMoving)
+        // {
+        //     animator.SetFloat("Horizontal", movement.x);
+        // }
     }
     
     void FlipSprite()
