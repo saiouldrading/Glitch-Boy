@@ -151,7 +151,7 @@ public class Enemy2 : MonoBehaviour
         if (animator == null) return;
         
         // Animator parameters set karo
-        animator.SetBool("WALKING", isMoving);
+        animator.SetBool("isWalking", isMoving);
         // animator.SetFloat("Speed", isMoving ? moveSpeed : 0f);
         
         // Horizontal movement ke liye (vertical nahi chahiye)
@@ -247,3 +247,206 @@ public class Enemy2 : MonoBehaviour
         }
     }
 }
+
+
+
+// using UnityEngine;
+
+// public class Enemy2 : MonoBehaviour
+// {
+//     [Header("Detection Settings")]
+//     [SerializeField] private float detectionRange = 8f;
+//     [SerializeField] private LayerMask playerLayer;
+
+//     [Header("Movement Settings")]
+//     [SerializeField] private float moveSpeed = 3f;
+//     [SerializeField] private float stoppingDistance = 1.5f;
+
+//     [Header("Combat Settings")]
+//     [SerializeField] private int damageAmount = 10;
+//     [SerializeField] private float damageInterval = 1f;
+
+//     [Header("References")]
+//     public Rigidbody2D rb;
+//     [SerializeField] private Transform player;
+//     [SerializeField] private Animator animator;
+
+//     private SpriteRenderer spriteRenderer;
+//     private bool playerDetected = false;
+//     private bool wallBlocking = false; // <- NEW VARIABLE
+//     private Vector2 movement;
+//     private float lastDamageTime = 0f;
+
+//     void Start()
+//     {
+//         if (rb == null)
+//             rb = GetComponent<Rigidbody2D>();
+
+//         spriteRenderer = GetComponent<SpriteRenderer>();
+//         if (animator == null)
+//             animator = GetComponent<Animator>();
+
+//         if (player == null)
+//         {
+//             GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+//             if (playerObj != null)
+//                 player = playerObj.transform;
+//         }
+
+//         if (rb != null)
+//         {
+//             rb.gravityScale = 0;
+//             rb.freezeRotation = true;
+//             rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+//             rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+//             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+//         }
+//     }
+
+//     void Update()
+//     {
+//         if (player == null) return;
+
+//         // Player health check
+//         MainPlayer playerScript = player.GetComponent<MainPlayer>();
+//         if (playerScript != null && playerScript.currentHealth <= 0)
+//         {
+//             movement = Vector2.zero;
+//             UpdateAnimation(false);
+//             return;
+//         }
+
+//         // Agar wall ke sath takraya hai to move mat karo
+//         if (wallBlocking)
+//         {
+//             movement = Vector2.zero;
+//             UpdateAnimation(false);
+//             return;
+//         }
+
+//         // Player detect karo
+//         DetectPlayer();
+
+//         if (playerDetected)
+//         {
+//             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+
+//             if (distanceToPlayer > stoppingDistance)
+//             {
+//                 float directionX = Mathf.Sign(player.position.x - transform.position.x);
+//                 movement = new Vector2(directionX, 0f);
+//                 UpdateAnimation(true);
+//             }
+//             else
+//             {
+//                 movement = Vector2.zero;
+//                 UpdateAnimation(false);
+//             }
+
+//             FlipSprite();
+//         }
+//         else
+//         {
+//             movement = Vector2.zero;
+//             UpdateAnimation(false);
+//         }
+//     }
+
+//     void FixedUpdate()
+//     {
+//         if (rb != null)
+//             rb.linearVelocity = movement * moveSpeed;
+//         else
+//             transform.position += (Vector3)movement * moveSpeed * Time.fixedDeltaTime;
+//     }
+
+//     void DetectPlayer()
+//     {
+//         float distanceToPlayer = Vector2.Distance(transform.position, player.position);
+//         if (distanceToPlayer <= detectionRange)
+//         {
+//             Vector2 direction = player.position - transform.position;
+//             RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, detectionRange);
+
+//             if (hit.collider != null && hit.collider.CompareTag("Player"))
+//             {
+//                 playerDetected = true;
+//                 return;
+//             }
+//         }
+//         playerDetected = false;
+//     }
+
+//     void UpdateAnimation(bool isMoving)
+//     {
+//         if (animator == null) return;
+//         animator.SetBool("isWalking", isMoving);
+
+//         if (isMoving)
+//             animator.SetFloat("Horizontal", movement.x);
+//     }
+
+//     void FlipSprite()
+//     {
+//         if (spriteRenderer == null) return;
+//         spriteRenderer.flipX = (player.position.x > transform.position.x);
+//     }
+
+//     void OnDrawGizmosSelected()
+//     {
+//         Gizmos.color = Color.yellow;
+//         Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+//         Gizmos.color = Color.red;
+//         Gizmos.DrawWireSphere(transform.position, stoppingDistance);
+
+//         if (playerDetected && player != null)
+//         {
+//             Gizmos.color = Color.green;
+//             Gizmos.DrawLine(transform.position, player.position);
+//         }
+//     }
+
+//     // -------- WALL DETECTION SYSTEM --------
+//     void OnCollisionEnter2D(Collision2D collision)
+//     {
+//         if (collision.gameObject.CompareTag("Wall"))
+//         {
+//             wallBlocking = true;
+//             movement = Vector2.zero;
+//             UpdateAnimation(false);
+//         }
+
+//         if (collision.gameObject.CompareTag("Player"))
+//         {
+//             DamagePlayer(collision.gameObject);
+//         }
+//     }
+
+//     void OnCollisionExit2D(Collision2D collision)
+//     {
+//         if (collision.gameObject.CompareTag("Wall"))
+//         {
+//             wallBlocking = false; // Wall chhodi, fir se chase start karega
+//         }
+//     }
+
+//     void OnCollisionStay2D(Collision2D collision)
+//     {
+//         if (collision.gameObject.CompareTag("Player") &&
+//             Time.time >= lastDamageTime + damageInterval)
+//         {
+//             DamagePlayer(collision.gameObject);
+//         }
+//     }
+
+//     void DamagePlayer(GameObject playerObject)
+//     {
+//         MainPlayer playerScript = playerObject.GetComponent<MainPlayer>();
+//         if (playerScript != null)
+//         {
+//             playerScript.Takedamage(damageAmount);
+//             lastDamageTime = Time.time;
+//         }
+//     }
+// }
