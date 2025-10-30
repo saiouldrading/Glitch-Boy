@@ -3696,8 +3696,8 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
-  moveSpeed: 4
-  chaseSpeed: 5.5
+  moveSpeed: 3
+  chaseSpeed: 3
   stoppingDistance: 1.5
   patrolSpeed: 2
   edgeCheckDistance: 0.5
