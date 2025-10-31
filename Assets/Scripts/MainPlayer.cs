@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainPlayer : MonoBehaviour
 {
+    public static MainPlayer Instance;
     public float speed = 3f;
     public float jumpForce = 4f;
     private float Walkspeed = 3f;
@@ -13,6 +14,7 @@ public class MainPlayer : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     public AudioSource audioSourceBGM;
+    public AudioSource audioSourceSFX;
     [Header("Health Settings")]
     public Transform RespawnPoint;
     public int maxHealth = 100;
@@ -22,9 +24,11 @@ public class MainPlayer : MonoBehaviour
     private bool canMove = true;
     private bool isRunning = false;
     private bool isJumping = false;
+    private bool isDead = false;
     private Vector2 orignalscale;
     [Header("Audio Clips")]
     public AudioClip jumpsound;
+    public AudioClip BGM;
     public AudioClip deadsound;
     public float deaththreshold = -10f;
     public GameObject Restartmenu;
@@ -39,6 +43,10 @@ public class MainPlayer : MonoBehaviour
     public float groundCheckDistance = 0.2f;
     public LayerMask groundLayer;
     public LayerMask SecondaryGroundLayer;
+    void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
@@ -48,6 +56,9 @@ public class MainPlayer : MonoBehaviour
         currentHealth = maxHealth;
         healBar.SetMaxHealth(maxHealth);
         orignalscale = transform.localScale;
+        audioSourceBGM.clip = BGM;
+        audioSourceBGM.loop = true;
+        audioSourceBGM.Play();
     }
 
     void Update()
@@ -85,7 +96,7 @@ public class MainPlayer : MonoBehaviour
             jumpCount++;
             isJumping = true;
             animator.SetBool("IsJumping", true);
-            audioSourceBGM.PlayOneShot(jumpsound);
+            audioSourceSFX.PlayOneShot(jumpsound);
         }
 
         if (isGrounded && rb.linearVelocity.y == 0)
@@ -112,8 +123,12 @@ public class MainPlayer : MonoBehaviour
 
     public void Die()
     {
+        if (isDead) return;
+        isDead = true;
         animator.SetBool("IsDead", true);
-        audioSourceBGM.PlayOneShot(deadsound);
+        audioSourceSFX.PlayOneShot(deadsound);
+        audioSourceBGM.Pause();
+
     }
 
     public void Respawn()
@@ -124,6 +139,8 @@ public class MainPlayer : MonoBehaviour
         canMove = true;
         animator.SetBool("IsDead", false);
         Restartmenu.SetActive(false);
+        audioSourceBGM.Play();
+        isDead = false;
     }
 
     public void Running(float Xmovement)

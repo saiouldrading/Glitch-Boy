@@ -10,12 +10,7 @@ public class Restart : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if (BM != null)
-        {
-            // audioSource.clip = BM;
-            // audioSource.loop = true;
-            // audioSource.Play();
-        }
+
     }
     void Awake()
     {
