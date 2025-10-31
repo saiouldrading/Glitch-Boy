@@ -10,18 +10,13 @@ public class Restart : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        if (BM != null)
-        {
-            audioSource.clip = BM;
-            audioSource.loop = true;
-            audioSource.Play();
-        }
+
     }
     void Awake()
     {
         Instance = this;
         if (restartUi != null)
-            restartUi.SetActive(false); 
+            restartUi.SetActive(false);
     }
 
     public void ShowRestartUI()
@@ -60,4 +55,3 @@ public class Restart : MonoBehaviour
         HideRestartUI();
     }
 }
-
