@@ -121,14 +121,32 @@ public class MainPlayer : MonoBehaviour
         }
     }
 
+
     public void Die()
     {
         if (isDead) return;
         isDead = true;
         animator.SetBool("IsDead", true);
         audioSourceSFX.PlayOneShot(deadsound);
-        audioSourceBGM.Pause();
+        StartCoroutine(FadeOutBGM(1f));
+        canMove = false; // stop player input
+        rb.linearVelocity = Vector2.zero; // stop any current motion
 
+
+    }
+    private IEnumerator FadeOutBGM(float duration)
+    {
+        float startVolume = audioSourceBGM.volume;
+
+        // Gradually reduce volume to 0
+        while (audioSourceBGM.volume > 0)
+        {
+            audioSourceBGM.volume -= startVolume * Time.deltaTime / duration;
+            yield return null; // wait for next frame
+        }
+
+        audioSourceBGM.Stop(); // stop BGM after fade
+        audioSourceBGM.volume = startVolume; // reset volume for next time
     }
 
     public void Respawn()
@@ -139,7 +157,10 @@ public class MainPlayer : MonoBehaviour
         canMove = true;
         animator.SetBool("IsDead", false);
         Restartmenu.SetActive(false);
+        audioSourceBGM.volume = 1f;
         audioSourceBGM.Play();
+
+
         isDead = false;
     }
 
