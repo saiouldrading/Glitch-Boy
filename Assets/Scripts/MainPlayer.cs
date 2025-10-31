@@ -127,6 +127,7 @@ public class MainPlayer : MonoBehaviour
         if (isDead) return;
         isDead = true;
         animator.SetBool("IsDead", true);
+        animator.SetBool("IsJumping", false);
         audioSourceSFX.PlayOneShot(deadsound);
         StartCoroutine(FadeOutBGM(1f));
         canMove = false; // stop player input
