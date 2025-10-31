@@ -12,7 +12,7 @@ public class MainPlayer : MonoBehaviour
     private float RunSpeed = 6f;
 
     Rigidbody2D rb;
-    Animator animator;
+    public Animator animator;
     public AudioSource audioSourceBGM;
     public AudioSource audioSourceSFX;
     [Header("Health Settings")]
@@ -21,7 +21,7 @@ public class MainPlayer : MonoBehaviour
     public int currentHealth;
     public HealBar healBar;
     [Header("Movement Control")]
-    private bool canMove = true;
+    public bool canMove = true;
     private bool isRunning = false;
     private bool isJumping = false;
     private bool isDead = false;
@@ -43,6 +43,15 @@ public class MainPlayer : MonoBehaviour
     public float groundCheckDistance = 0.2f;
     public LayerMask groundLayer;
     public LayerMask SecondaryGroundLayer;
+    [Header("Riven Control")]
+    [Tooltip("Root GameObject of the Riven character. Optional: used to enable/disable the whole object.")]
+    public GameObject riven;
+    [Tooltip("Assign the movement/AI script on Riven so it can be enabled/disabled.")]
+    public MonoBehaviour rivenMovement;
+    [Tooltip("Optional: Riven's Animator to toggle working/idling parameters. Parameter name may vary in your animator.")]
+    public Animator rivenAnimator;
+    [Tooltip("Optional: Riven's Rigidbody2D to immediately stop physics motion when disabling.")]
+    public Rigidbody2D rivenRb;
     void Awake()
     {
         Instance = this;
@@ -127,12 +136,17 @@ public class MainPlayer : MonoBehaviour
         if (isDead) return;
         isDead = true;
         animator.SetBool("IsDead", true);
+        animator.SetBool("IsJumping", false);
         audioSourceSFX.PlayOneShot(deadsound);
         StartCoroutine(FadeOutBGM(1f));
         canMove = false; // stop player input
         rb.linearVelocity = Vector2.zero; // stop any current motion
 
 
+    }
+    public void FadeSound(float duration)
+    {
+        StartCoroutine(FadeOutBGM(duration));
     }
     private IEnumerator FadeOutBGM(float duration)
     {
@@ -163,6 +177,16 @@ public class MainPlayer : MonoBehaviour
 
         isDead = false;
     }
+    public void StopMovement()
+    {
+        canMove = false;
+        rb.linearVelocity = Vector2.zero;
+        animator.SetBool("IsRunning", false);
+        animator.SetBool("Running", false);
+        animator.SetFloat("Speed", 0f);
+    }
+
+
 
     public void Running(float Xmovement)
     {
