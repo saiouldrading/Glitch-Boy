@@ -38,6 +38,7 @@ public class MainPlayer : MonoBehaviour
     public Transform groundCheck;   // Empty object placed at player’s feet
     public float groundCheckDistance = 0.2f;
     public LayerMask groundLayer;
+    public LayerMask SecondaryGroundLayer;
 
     void Start()
     {
@@ -74,7 +75,7 @@ public class MainPlayer : MonoBehaviour
 
     private void Jumping()
     {
-        bool isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+        bool isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer + SecondaryGroundLayer);
         Debug.DrawRay(groundCheck.position, Vector2.down * groundCheckDistance, Color.red);
 
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < maxJumps))
