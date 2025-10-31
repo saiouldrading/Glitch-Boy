@@ -12,7 +12,7 @@ public class MainPlayer : MonoBehaviour
 
     Rigidbody2D rb;
     Animator animator;
-    AudioSource audioSource;
+    public AudioSource audioSourceBGM;
     [Header("Health Settings")]
     public Transform RespawnPoint;
     public int maxHealth = 100;
@@ -44,7 +44,7 @@ public class MainPlayer : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+
         currentHealth = maxHealth;
         healBar.SetMaxHealth(maxHealth);
         orignalscale = transform.localScale;
@@ -85,7 +85,7 @@ public class MainPlayer : MonoBehaviour
             jumpCount++;
             isJumping = true;
             animator.SetBool("IsJumping", true);
-            audioSource.PlayOneShot(jumpsound);
+            audioSourceBGM.PlayOneShot(jumpsound);
         }
 
         if (isGrounded && rb.linearVelocity.y == 0)
@@ -113,7 +113,7 @@ public class MainPlayer : MonoBehaviour
     public void Die()
     {
         animator.SetBool("IsDead", true);
-        audioSource.PlayOneShot(deadsound);
+        audioSourceBGM.PlayOneShot(deadsound);
     }
 
     public void Respawn()
