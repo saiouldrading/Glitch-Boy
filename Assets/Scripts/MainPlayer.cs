@@ -75,7 +75,7 @@ public class MainPlayer : MonoBehaviour
 
     private void Jumping()
     {
-        bool isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer + SecondaryGroundLayer);
+        bool isGrounded = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer | SecondaryGroundLayer);
         Debug.DrawRay(groundCheck.position, Vector2.down * groundCheckDistance, Color.red);
 
         if (Input.GetKeyDown(KeyCode.Space) && (isGrounded || jumpCount < maxJumps))
