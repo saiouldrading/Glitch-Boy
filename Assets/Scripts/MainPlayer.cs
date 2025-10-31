@@ -13,23 +13,23 @@ public class MainPlayer : MonoBehaviour
     Rigidbody2D rb;
     Animator animator;
     AudioSource audioSource;
-
+    [Header("Health Settings")]
     public Transform RespawnPoint;
     public int maxHealth = 100;
     public int currentHealth;
     public HealBar healBar;
-
+    [Header("Movement Control")]
     private bool canMove = true;
     private bool isRunning = false;
     private bool isJumping = false;
     private Vector2 orignalscale;
-
+    [Header("Audio Clips")]
     public AudioClip jumpsound;
     public AudioClip deadsound;
     public float deaththreshold = -10f;
     public GameObject Restartmenu;
 
-    // Double jump variables
+    [Header("Jump Settings")]
     private int jumpCount = 0;
     public int maxJumps = 2;
 
