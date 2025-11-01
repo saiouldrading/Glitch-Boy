@@ -1,21 +1,30 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMEnuScript : MonoBehaviour
 {
 
     public AudioClip click;
-    private AudioSource audioSource;
-    
+    public AudioSource audioSource;
+    public Slider volumeSlider;
+
 
     public void Start()
     {
-        audioSource= GetComponent<AudioSource>();
+
+        volumeSlider.value = audioSource.volume;
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
+
+    }
+    void ChangeVolume(float value)
+    {
+        audioSource.volume = value;
     }
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-         audioSource.PlayOneShot(click);
+        audioSource.PlayOneShot(click);
 
     }
 
@@ -25,4 +34,5 @@ public class MainMEnuScript : MonoBehaviour
         Application.Quit();
         Debug.Log("QuitGame");
     }
+
 }

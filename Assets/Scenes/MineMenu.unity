@@ -1980,6 +1980,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   click: {fileID: 8300000, guid: 2c6f34a6168b6c14ea3d2fc1402fe6fb, type: 3}
+  audioSource: {fileID: 1517292768}
+  volumeSlider: {fileID: 63699154}
 --- !u!82 &1470695014
 AudioSource:
   m_ObjectHideFlags: 0
