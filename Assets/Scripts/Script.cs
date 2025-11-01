@@ -13,8 +13,7 @@ public class Script : MonoBehaviour
 
     private void Start()
     {
-        // Default setup
-        volumeSlider.value = audioSourceBGM.volume;
+
 
         // Add listener to slider
         volumeSlider.onValueChanged.AddListener(ChangeVolume);
@@ -22,6 +21,7 @@ public class Script : MonoBehaviour
 
     void ChangeVolume(float value)
     {
+
         // Control both BGM & SFX
         audioSourceBGM.volume = value;
         audioSourceSFX.volume = value;
