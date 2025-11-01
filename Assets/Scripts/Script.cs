@@ -1,11 +1,26 @@
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Script : MonoBehaviour
 {
     public static bool GameisPaused = false;
 
     public GameObject PauseMenuUi;
+    public GameObject OptionsMenuUi;
+    public Slider volumeSlider;
+    public AudioSource audioSource;
+
+    public void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+        volumeSlider.value = audioSource.volume;
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
+    }
+    void ChangeVolume(float value)
+    {
+        audioSource.volume = value;
+    }
 
     void Update()
     {
@@ -28,6 +43,7 @@ public class Script : MonoBehaviour
         PauseMenuUi.SetActive(true);
         Time.timeScale = 0f;
         GameisPaused = true;
+        OptionsMenuUi.SetActive(false);
     }
 
     public void Resume()
@@ -49,5 +65,19 @@ public class Script : MonoBehaviour
         Application.Quit();
 
         Debug.Log("game cut jao");
+    }
+
+    public void BackToMenu()
+    {
+        PauseMenuUi.SetActive(true);
+        Time.timeScale = 0f;
+        GameisPaused = true;
+        OptionsMenuUi.SetActive(false);
+
+    }
+    public void OptionsMenu()
+    {
+        PauseMenuUi.SetActive(false);
+        OptionsMenuUi.SetActive(true);
     }
 }
